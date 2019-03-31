@@ -2,6 +2,7 @@ def badInput():
     print("Input must be a valid real number, expressed as a decimal")
 
 def isValidInput(string):
+    print(string)
     periodCount = 0
     for s in string:
         if not(s.isdigit()):
@@ -38,9 +39,6 @@ def moveDecimalRight(string, numPlaces):
     return newString
 
 def divisionAlgorithm(numeratorS, denominatorS, numberOfDigits):
-    if not(isValidInput(numeratorS) and isValidInput(denominatorS)):
-        print("Input must be a valid real number, expressed as a decimal")
-        return
     if "." in numeratorS or "." in denominatorS:
         while "." in numeratorS or "." in denominatorS: #getLocationOfDecimal(numeratorS) != len(numeratorS) and getLocationOfDecimal(denominatorS) != len(denominatorS):
             #print(numeratorS, denominatorS)
@@ -84,13 +82,18 @@ def divisionAlgorithm(numeratorS, denominatorS, numberOfDigits):
         #print(result)
     return result
 
-while(True):
-    while (True): #The following emulates a do-while loop in Python
-        numerator = input("Enter the numerator: ")
-        if (isValidInput(numerator)):
-            break
-        badInput()
-    denominator = input("Enter the denominator: ")
-    numDigits = int(input("How many digits would you like to calcuate this division to?"))
 
-    print(divisionAlgorithm(numerator, denominator, numDigits))
+#MAIN
+while (True): #The following emulates a do-while loop in Python
+    numerator = input("Enter the numerator: ")
+    if (isValidInput(numerator)):
+        break
+    badInput()
+while (True):
+    denominator = input("Enter the denominator: ")
+    if (isValidInput(denominator)):
+        break
+    badInput()
+numDigits = int(input("How many digits would you like to calcuate this division to?"))
+
+print(divisionAlgorithm(numerator, denominator, numDigits))
