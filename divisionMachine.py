@@ -33,19 +33,20 @@ def moveDecimalRight(string, numPlaces):
         return newString
     else:
         newString = string[0:currentDecimalLocation] + string[currentDecimalLocation + 1: currentDecimalLocation + 1 + numPlaces] + "." + string[currentDecimalLocation + numPlaces + 1: len(string)]
-    currentDecimalLocation = getLocationOfDecimal(newString)
+    currentDecimalLocation = getLocationOfDecimal(newString) #To increase efficiency, you should be able to do if newString[len(newString) - 1] == ".":
     if currentDecimalLocation == len(newString):#After shifting the decimal place, if it's not at the end
-        newString = newString[0:len(newString) - 1]
+        newString = newString[0:len(newString) - 1] #Chop off the decimal place at the end
     return newString
 
 def divisionAlgorithm(numeratorS, denominatorS, numberOfDigits):
+    print("Location of " + numeratorS + " decimal place is " + str(getLocationOfDecimal(numeratorS)))
+    print("Moving the decimal place over, we have: " + moveDecimalRight(numeratorS, len(numeratorS) - 1 - getLocationOfDecimal(numeratorS)))
     if "." in numeratorS or "." in denominatorS:
         while "." in numeratorS or "." in denominatorS: #getLocationOfDecimal(numeratorS) != len(numeratorS) and getLocationOfDecimal(denominatorS) != len(denominatorS):
             #print(numeratorS, denominatorS)
             numeratorS = moveDecimalRight(numeratorS, 1)
             denominatorS = moveDecimalRight(denominatorS, 1)
             #print(numeratorS, denominatorS)
-
     numeratorI = int(numeratorS)
     denominatorI = int(denominatorS)
     decimalInserted = False
