@@ -1,5 +1,6 @@
-def badInput():
+def badInput(reason):
     print("Input must be a valid real number, expressed as a decimal")
+    print(reason)
 
 def isValidInput(string):
     print(string)
@@ -9,10 +10,10 @@ def isValidInput(string):
             if s == ".":
                 periodCount += 1
             else:
-                print(s + "is not a digit!")
+                badInput(s + "is not a digit!")
                 return False
     if periodCount > 1:
-        print("Too many decimal points!")
+        badInput("Too many decimal points!")
         return False
     return True
 
@@ -33,6 +34,7 @@ def moveDecimalRight(string, numPlaces):
         return newString
     else:
         newString = string[0:currentDecimalLocation] + string[currentDecimalLocation + 1: currentDecimalLocation + 1 + numPlaces] + "." + string[currentDecimalLocation + numPlaces + 1: len(string)]
+        #Keep the string before the decimal place, grab "numPlaces" after the decimal place, add a period, and then append the remainder of the string
     currentDecimalLocation = getLocationOfDecimal(newString) #To increase efficiency, you should be able to do if newString[len(newString) - 1] == ".":
     if currentDecimalLocation == len(newString):#After shifting the decimal place, if it's not at the end
         newString = newString[0:len(newString) - 1] #Chop off the decimal place at the end
@@ -43,10 +45,8 @@ def divisionAlgorithm(numeratorS, denominatorS, numberOfDigits):
     print("Moving the decimal place over, we have: " + moveDecimalRight(numeratorS, len(numeratorS) - 1 - getLocationOfDecimal(numeratorS)))
     if "." in numeratorS or "." in denominatorS:
         while "." in numeratorS or "." in denominatorS: #getLocationOfDecimal(numeratorS) != len(numeratorS) and getLocationOfDecimal(denominatorS) != len(denominatorS):
-            #print(numeratorS, denominatorS)
             numeratorS = moveDecimalRight(numeratorS, 1)
             denominatorS = moveDecimalRight(denominatorS, 1)
-            #print(numeratorS, denominatorS)
     numeratorI = int(numeratorS)
     denominatorI = int(denominatorS)
     decimalInserted = False
@@ -85,16 +85,19 @@ def divisionAlgorithm(numeratorS, denominatorS, numberOfDigits):
 
 
 #MAIN
-while (True): #The following emulates a do-while loop in Python
-    numerator = input("Enter the numerator: ")
-    if (isValidInput(numerator)):
-        break
-    badInput()
-while (True):
-    denominator = input("Enter the denominator: ")
-    if (isValidInput(denominator)):
-        break
-    badInput()
-numDigits = int(input("How many digits would you like to calcuate this division to?"))
+# while (True): #The following emulates a do-while loop in Python
+#     numerator = input("Enter the numerator: ")
+#     if (isValidInput(numerator)):
+#         break
+#     badInput("")
+# while (True):
+#     denominator = input("Enter the denominator: ")
+#     if (isValidInput(denominator)):
+#         break
+#     badInput("")
+# numDigits = int(input("How many digits would you like to calcuate this division to?"))
+#
+# print(divisionAlgorithm(numerator, denominator, numDigits))
 
-print(divisionAlgorithm(numerator, denominator, numDigits))
+print(moveDecimalRight("1.23", 10)) #Produces 123
+print(moveDecimalRight("123", 1)) #Produces 1230
